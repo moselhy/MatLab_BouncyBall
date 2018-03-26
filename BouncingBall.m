@@ -12,14 +12,13 @@ P.y_velo = eps; % The initial vertical velocity
 P.x_velo = 5; % The horizontal velocity (constant)
 P.precision = 0; % Round y to this many decimal places to determine whether it is in air
 P.acceleration = 9.8; % Set P.acceleration of the ball downwards
-P.update_time = 0.06; % update the plot every this many seconds
+P.update_time = 0.001; % update the plot every this many seconds
 P.origin = [0 0]; % Where the stairs start
-P.initialDistance = 4; % The length of the first step (aesthetic purposes only)
 P.timePerBeat = 0.5; % Set the time it takes for a beat in seconds (e.g. for 1121) it would take a total of (1+1+2+1) * time per beat
 P.ballRadius = 0.3; % The radius of the bouncing ball
 P.ballColor = 'b';
-P.leaveTrail = true; % Set this to true if you want the ball to create a trail as it moves
-P.animate = false; % Set this to true if you want to see the ball actually moving, rather than the trajectory
+P.leaveTrail = false; % Set this to true if you want the ball to create a trail as it moves
+P.animate = true; % Set this to true if you want to see the ball actually moving, rather than the trajectory
 
 y_velo = P.y_velo;
 prev_in_air = false; % This should be initially set to false because we assume the ball starts on the ground
@@ -27,8 +26,8 @@ prev_in_air = false; % This should be initially set to false because we assume t
 % widths = [5, 10, 20];
 % heights = [5, 6, 7];
 
-[widths, heights] = RhythmToDims(11111, P); % Get dimensions of stairs from rhythm sequence
-[x_points, y_points] = DimsToStairs(widths, heights, P.origin, P.initialDistance); % Get stair coordinates from dimensions
+[widths, heights, deltas] = RhythmToDims(11111, P); % Get dimensions of stairs from rhythm sequence
+[x_points, y_points] = DimsToStairs(widths, heights, P.origin); % Get stair coordinates from dimensions
 % Set initial position
 x = x_points(2); % Start at the end of the first stair
 y = y_points(1);

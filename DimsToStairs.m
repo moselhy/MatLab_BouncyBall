@@ -1,5 +1,5 @@
 % From dimensions, calculate the parameters to the function stairs(x_points, y_points)
-function [x_points, y_points] = DimsToStairs(widths, heights, origin, initialDistance)
+function [x_points, y_points] = DimsToStairs(widths, heights, origin)
     numIntervals = length(widths);
     x_points = zeros(1, numIntervals + 2);
     y_points = zeros(1, numIntervals + 2);
