@@ -4,8 +4,7 @@
 
 % NOTE: you must input rhythm sequences as a string or character vector enclosed by quotes (e.g.
 % "11211" or '11211'), not as integers (e.g. 11211)
-clf;
-clear;
+clf; clear;
 
 %% Set Parameters
 P = struct(); % All user-defined parameters will be stored here
@@ -13,7 +12,7 @@ P.y_velo = eps; % The initial vertical velocity
 P.x_velo = 5; % The horizontal velocity (constant)
 P.precision = 0; % Round y to this many decimal places to determine whether it is in air
 P.acceleration = 9.8; % Set P.acceleration of the ball downwards
-P.update_time = 0.001; % update the plot every this many seconds
+P.update_time = 0.1; % update the plot every this many seconds
 P.origin = [0 0]; % Where the stairs start
 P.timePerBeat = 0.5; % Set the time it takes for a beat in seconds (e.g. for 1121) it would take a total of (1+1+2+1) * time per beat
 P.ballRadius = 0.3; % The radius of the bouncing ball
@@ -55,6 +54,7 @@ while true
 %     y = pos(2) + (y_velo * P.update_time);
     yOffset = initialVelocities(currBounce) * elapsedTime + 0.5 * P.acceleration * elapsedTime^2;
     y = bounceCoords(currBounce, 2) - yOffset;
+    
     rounded_y = round(y,P.precision);
     rounded_y_points = round(y_points,P.precision);
     
@@ -84,7 +84,6 @@ while true
     if prev_in_air && ~in_air
         y_velo = -y_velo;
         currBounce = currBounce + 1;
-        disp('bounce');
     % If it is in the air, then update the y velocity
     elseif in_air
         y_velo = y_velo - (P.acceleration * P.update_time);
@@ -100,4 +99,18 @@ while true
     end
 
     DrawBall(P, pos);
+%     if P.animate
+%         % Draw the ball at the current position
+%         ballPos = pos + P.ballRadius/2;
+% %         ball = viscircles(ballPos, P.ballRadius, 'Color', P.ballColor, 'LineWidth', 10);
+%         ball = filledCircle(ballPos, P.ballRadius, 8, P.ballColor);
+%         % The interval time to update the plot (the lower the slower)
+%         pause(P.update_time);
+%         % Delete the previous ball
+%         delete(ball);
+%     end
+%     if P.leaveTrail
+%         hold on;
+%         plot(pos(1), pos(2), 'r.');
+%     end
 end
